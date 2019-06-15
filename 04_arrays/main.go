@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func arrays() {
+	fmt.Println("Executing arrays")
 	// Arrays
 	// var fruitArr [2]string
 	// fruitArr[0] = "Apple"
@@ -11,6 +15,8 @@ func arrays() {
 	// Declare and assign at the same time
 	fruitArr := [2]string{"Apple", "Orange"}
 	fruitSlice := []string{"Apple", "Orange", "Grapes"}
+
+	fruitSlice = append(fruitSlice, "Mango")
 
 	fmt.Println(fruitArr, fruitSlice)
 	fmt.Println("Slicing in Arrays", fruitSlice[1:3])
@@ -128,6 +134,51 @@ func adderClosure() func(int) int {
 	}
 }
 
+func stringToPrint(str string) func(int) []string {
+
+	return func(no int) []string {
+		var arrayOfStrings []string
+
+		for i := 0; i < no; i++ {
+			arrayOfStrings = append(arrayOfStrings, str)
+		}
+		return arrayOfStrings
+	}
+}
+
+// structs are an important part of go, serving as the class alternative
+func structs() {
+	type Person struct {
+		name string
+		age  int
+	}
+
+	person1 := Person{name: "Piyush Daga", age: 23}
+	person2 := Person{"Ola Boi", 22}
+
+	fmt.Println(person1)
+	fmt.Println(person2)
+
+}
+
+// Person is struct that contains the first and last name
+type Person struct {
+	firstName string
+	lastName  string
+	age       int
+}
+
+// Greeting mthod (value receivers)
+func (p Person) greeting() {
+	fmt.Println("Hello my name is " + p.firstName + " " + p.lastName +
+		" and my age is " + strconv.Itoa(p.age))
+}
+
+// hasBirthday method pointer receiver
+func (p *Person) hasBirthday() {
+	p.age++
+}
+
 func main() {
 	// arrays()
 	// conditionals()
@@ -140,5 +191,11 @@ func main() {
 	// for i := 0; i < 5; i++ {
 	// 	fmt.Println(sum(i))
 	// }
+	// fmt.Println(stringToPrint("Johhny Boi")(10))
+	// structs()
+	per1 := Person{"Nathon", "Fallon", 26}
+	per1.greeting()
+	per1.hasBirthday()
+	per1.greeting()
 
 }
